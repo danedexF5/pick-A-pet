@@ -14,11 +14,42 @@ public class PickAPetController {
     @Autowired
     DogRepo DogRepo;
 
+    @Autowired
+    TraitsRepo TraitsRepo;
+
     @RequestMapping(path = "/", method = RequestMethod.GET)
 
     //It should take the model and the session as arguments
     public String home(Model model, HttpSession session) {
 
+        //return the home template
+        return "home";
+
+
+    }
+
+    @RequestMapping(path = "/", method = RequestMethod.POST)
+
+    //It should take the model and the session as arguments
+    public String showPet(String q1, String q2, HttpSession session) {
+
+        Iterable<Dog> dogList = DogRepo.findAll();
+        Iterable<TraitsScore> traitsList = TraitsRepo.findAll();
+
+
+        for (Dog d : dogList) {
+            for (TraitsScore t : traitsList){
+                if(t.question == 1 && t.traitValue == d.energy && t.answer == Integer.parseInt(q1)){
+                    d.score += t.score;
+                }
+                if(t.question == 2 && t.traitValue == d.attention && t.answer == Integer.parseInt(q2)){
+                    d.score += t.score;
+                }
+
+            }
+
+
+        }
         //return the home template
         return "home";
     }
