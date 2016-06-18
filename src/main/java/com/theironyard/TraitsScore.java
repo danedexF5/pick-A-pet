@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class TraitsScore {
+public class Traitsscore {
 
     @Id
     @GeneratedValue

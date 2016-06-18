@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class PickAPetController {
@@ -31,27 +32,32 @@ public class PickAPetController {
     @RequestMapping(path = "/", method = RequestMethod.POST)
 
     //It should take the model and the session as arguments
-    public String showPet(String q1, String q2, HttpSession session) {
+    public String showPet(String q1, String q2, String q3, String q4, String q5, String q6,
+                          String q7, String q8, String q9, Model model, HttpSession session) {
 
-        Iterable<Dog> dogList = DogRepo.findAll();
-        Iterable<TraitsScore> traitsList = TraitsRepo.findAll();
+        List<Dog> dogList = DogRepo.findAll();
+        Iterable<Traitsscore> traitsList = TraitsRepo.findAll();
 
-
+        Dog dogChoice = dogList.get(0);
         for (Dog d : dogList) {
-            for (TraitsScore t : traitsList){
-                if(t.question == 1 && t.traitValue == d.energy && t.answer == Integer.parseInt(q1)){
-                    d.score += t.score;
-                }
-                if(t.question == 2 && t.traitValue == d.attention && t.answer == Integer.parseInt(q2)){
-                    d.score += t.score;
-                }
+            d.score += TraitsRepo.findByRow(1, Integer.parseInt(q1), d.energy).score;
+            d.score += TraitsRepo.findByRow(2, Integer.parseInt(q2), d.attention).score;
+           /* d.score += TraitsRepo.findByRow(3, Integer.parseInt(q3), d.exercise).score;
+            d.score += TraitsRepo.findByRow(4, Integer.parseInt(q4), d.size).score;
+            d.score += TraitsRepo.findByRow(5, Integer.parseInt(q5), d.space).score;
+            d.score += TraitsRepo.findByRow(6, Integer.parseInt(q6), d.outdoor).score;
+            d.score += TraitsRepo.findByRow(7, Integer.parseInt(q7), d.kids).score;
+            d.score += TraitsRepo.findByRow(8, Integer.parseInt(q8), d.sheds).score;
+            d.score += TraitsRepo.findByRow(9, Integer.parseInt(q9), d.friendliness).score;*/
 
-            }
-
+           if(dogChoice.score < d.score){
+               dogChoice = d;
+           }
 
         }
+        model.addAttribute("dogChoice", dogChoice);
         //return the home template
-        return "home";
+        return "dog";
     }
 }
 
