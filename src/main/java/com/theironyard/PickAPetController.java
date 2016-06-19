@@ -35,6 +35,10 @@ public class PickAPetController {
     public String showPet(String q1, String q2, String q3, String q4, String q5, String q6,
                           String q7, String q8, String q9, Model model, HttpSession session) {
 
+        if(q1 == null || q2 == null || q3 == null || q4 == null || q5 == null || q6 == null || q7 == null || q8 == null || q9 == null){
+            return "home";
+        }
+
         List<Dog> dogList = DogRepo.findAll();
         Iterable<Traitsscore> traitsList = TraitsRepo.findAll();
 
@@ -42,13 +46,13 @@ public class PickAPetController {
         for (Dog d : dogList) {
             d.score += TraitsRepo.findByRow(1, Integer.parseInt(q1), d.energy).score;
             d.score += TraitsRepo.findByRow(2, Integer.parseInt(q2), d.attention).score;
-           /* d.score += TraitsRepo.findByRow(3, Integer.parseInt(q3), d.exercise).score;
+            d.score += TraitsRepo.findByRow(3, Integer.parseInt(q3), d.exercise).score;
             d.score += TraitsRepo.findByRow(4, Integer.parseInt(q4), d.size).score;
             d.score += TraitsRepo.findByRow(5, Integer.parseInt(q5), d.space).score;
             d.score += TraitsRepo.findByRow(6, Integer.parseInt(q6), d.outdoor).score;
             d.score += TraitsRepo.findByRow(7, Integer.parseInt(q7), d.kids).score;
             d.score += TraitsRepo.findByRow(8, Integer.parseInt(q8), d.sheds).score;
-            d.score += TraitsRepo.findByRow(9, Integer.parseInt(q9), d.friendliness).score;*/
+            d.score += TraitsRepo.findByRow(9, Integer.parseInt(q9), d.friendliness).score;
 
            if(dogChoice.score < d.score){
                dogChoice = d;
