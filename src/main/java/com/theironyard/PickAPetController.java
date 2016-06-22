@@ -35,9 +35,14 @@ public class PickAPetController {
     public String showPet(String q1, String q2, String q3, String q4, String q5, String q6,
                           String q7, String q8, String q9, Model model, HttpSession session) {
 
+        //Dog dog = new Dog();
+
         if(q1 == null || q2 == null || q3 == null || q4 == null || q5 == null || q6 == null || q7 == null || q8 == null || q9 == null){
             return "home";
         }
+       //todo: If user selects dog size 1, then all breeds that are med-huge get zeroed out.
+        // todo: If user chooses dog size 5, then breeds that are 1-3 are zeroed out. Something like this,
+        // todo: need to eliminate the possibility of getting a large dog if a small is chosen, vice-versa
 
         List<Dog> dogList = DogRepo.findAll();
         Iterable<Traitsscore> traitsList = TraitsRepo.findAll();
@@ -60,7 +65,7 @@ public class PickAPetController {
 
         }
         model.addAttribute("dogChoice", dogChoice);
-        //return the home template
+        //return the dog template
         return "dog";
     }
 }
