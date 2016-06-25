@@ -1,12 +1,28 @@
 package com.theironyard;
 
+import com.maxmind.geoip2.DatabaseReader;
+import com.maxmind.geoip2.exception.GeoIp2Exception;
+import com.maxmind.geoip2.model.CityResponse;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,12 +48,26 @@ public class PickAPetController {
     @RequestMapping(path = "/", method = RequestMethod.POST)
 
     //It should take the model and the session as arguments
-    public String showPet(String q1, String q2, String q3, String q4, String q5, String q6,
-                          String q7, String q8, String q9, Model model, HttpSession session) {
+    public String showPet(String attention, String energy, String exercise, String size, String space, String outdoor,
+                          String kids, String sheds, String friendliness, Model model, HttpSession session, HttpServletRequest request, String ip) throws IOException {
+
+        if (ip == null){
+            ip = request.getRemoteAddr();
+        }
+        CityResponse cityResponse = null;
+
+        try {
+            cityResponse = getCity(ip);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (GeoIp2Exception e) {
+            e.printStackTrace();
+        }
 
         //Dog dog = new Dog();
 
-        if(q1 == null || q2 == null || q3 == null || q4 == null || q5 == null || q6 == null || q7 == null || q8 == null || q9 == null){
+        if(attention == null || energy == null || exercise == null || size == null || space == null || outdoor == null
+                || kids == null || sheds == null || friendliness == null){
             return "home";
         }
        //todo: If user selects dog size 1, then all breeds that are med-huge get zeroed out.
@@ -45,182 +75,74 @@ public class PickAPetController {
         // todo: need to eliminate the possibility of getting a large dog if a small is chosen, vice-versa
 
         List<Dog> dogList = DogRepo.findAll();
-        Iterable<Traitsscore> traitsList = TraitsRepo.findAll();
+        //Iterable<Traitsscore> traitsList = TraitsRepo.findAll();
 
         Dog dogChoice = dogList.get(0);
         for (Dog d : dogList) {
-            d.score += TraitsRepo.findByRow(1, Integer.parseInt(q1), d.energy).score;
-            d.score += TraitsRepo.findByRow(2, Integer.parseInt(q2), d.attention).score;
-            d.score += TraitsRepo.findByRow(3, Integer.parseInt(q3), d.exercise).score;
-            d.score += TraitsRepo.findByRow(4, Integer.parseInt(q4), d.size).score;
-            d.score += TraitsRepo.findByRow(5, Integer.parseInt(q5), d.space).score;
-            d.score += TraitsRepo.findByRow(6, Integer.parseInt(q6), d.outdoor).score;
-            d.score += TraitsRepo.findByRow(7, Integer.parseInt(q7), d.kids).score;
-            d.score += TraitsRepo.findByRow(8, Integer.parseInt(q8), d.sheds).score;
-            d.score += TraitsRepo.findByRow(9, Integer.parseInt(q9), d.friendliness).score;
+            d.score += TraitsRepo.findByRow("attention", Integer.parseInt(attention), d.attention).score;
+            d.score += TraitsRepo.findByRow("energy", Integer.parseInt(energy), d.energy).score;
+            d.score += TraitsRepo.findByRow("exercise", Integer.parseInt(exercise), d.exercise).score;
+            d.score += TraitsRepo.findByRow("size", Integer.parseInt(size), d.size).score;
+            d.score += TraitsRepo.findByRow("space", Integer.parseInt(space), d.space).score;
+            d.score += TraitsRepo.findByRow("outdoor", Integer.parseInt(outdoor), d.outdoor).score;
+            d.score += TraitsRepo.findByRow("kids", Integer.parseInt(kids), d.kids).score;
+            d.score += TraitsRepo.findByRow("sheds", Integer.parseInt(sheds), d.sheds).score;
+            d.score += TraitsRepo.findByRow("friendliness", Integer.parseInt(friendliness), d.friendliness).score;
 
            if(dogChoice.score < d.score){
                dogChoice = d;
            }
 
         }
+        JSONArray petsArray = getPets(cityResponse, dogChoice.breed);
+        ArrayList<Pet> pets = new ArrayList<>();
+        for(Object petObj : petsArray) {
+            // cast to JSONObject
+            JSONObject jsonPet = (JSONObject) petObj;
+
+            // make a pet
+            Pet pet = new Pet(jsonPet);
+
+            // add to list
+            pets.add(pet);
+        }
+        model.addAttribute("pets", pets);
         model.addAttribute("dogChoice", dogChoice);
         //return the dog template
         return "dog";
     }
+
+    public CityResponse getCity (String ip) throws IOException, GeoIp2Exception {
+        InetAddress ipAddress = InetAddress.getByName(ip);
+
+        // get IP
+        System.out.println(ipAddress.toString());
+
+        // todo: add try/catch incase something blows up. add "no pets" message or something
+
+        // Do the lookup
+        File db = new File("GeoLite2-City.mmdb");
+        DatabaseReader reader = new DatabaseReader.Builder(db).build();
+
+
+        CityResponse response = reader.city(ipAddress);
+        return response;
+    }
+
+    public JSONArray getPets (CityResponse response, String breed) throws IOException {
+        String url = "http://api.petfinder.com/pet.find?key=7875e0a922b85853ebf2a9c60216a971&breed="+
+                URLEncoder.encode(breed, "UTF-8")+"&animal=dog&format=json&count=10&output=basic&location=" + response.getPostal().getCode();
+
+        // get json as string from url
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        HttpGet getRequest = new HttpGet(url);
+        HttpResponse result = httpClient.execute(getRequest);
+        String json = EntityUtils.toString(result.getEntity(), "UTF-8");
+
+        // parse json and get pets json array
+        JSONObject findPetResult = new JSONObject(json);
+        JSONArray petsArray = findPetResult.getJSONObject("petfinder").getJSONObject("pets").getJSONArray("pet");
+        return petsArray;
+    }
 }
 
-   /* public void questionsQ1(String q1, Dog d) {
-        switch (q1) {
-            case "1":
-                if (d.attention == 1) {
-                    d.score += 4;
-                } else {
-                    d.score += 1;
-                }
-                break;
-            case "2":
-                switch (d.attention) {
-                    case 1:
-                        break;
-                    case 2:
-                        d.score += 4;
-                        break;
-                    default:
-                        d.score += 1;
-                }
-                break;
-            case "3":
-                switch (d.attention) {
-                    case 1:
-                    case 2:
-                        break;
-                    case 3:
-                        d.score += 4;
-                        break;
-                    default:
-                        d.score += 1;
-                }
-                break;
-            case "4":
-                switch (d.attention) {
-                    case 1:
-                    case 2:
-                    case 3:
-                    default:
-                        d.score += 4;
-                }
-                break;
-        }
-    }
-
-    public void questionsQ2(String q2, Dog d) {
-        switch (q2) {
-            case "1":
-                if (d.exercise == 1) {
-                    d.score += 3;
-                } else {
-                    d.score += 1;
-                }
-                break;
-            case "2":
-                if (d.exercise == 2) {
-                    d.score += 3;
-                } else {
-                    d.score += 1;
-                }
-                break;
-            case "3":
-                if (d.exercise == 3) {
-                    d.score += 3;
-                } else {
-                    d.score += 1;
-                }
-                break;
-        }
-    }
-
-    /*public void questionsQ3(String q3, Dog d) {
-        switch (q3) {
-            case "1":
-                if (d.size == 1) {
-                    d.score += 5;
-                }
-                if (d.size == 2) {
-                    d.score += 2;
-                } else {
-                    d.score += 0;
-                }
-                break;
-            case "2":
-                if (d.size == 1) {
-                    d.score += 1;
-                }
-                if (d.size == 2) {
-                    d.score += 5;
-                }
-                if (d.size == 3) {
-                    d.score += 1;
-                } else {
-                    d.score += 0;
-                }
-                break;
-            case "3":
-                if (d.size == 1) {
-                    d.score += 0;
-                }
-                if (d.size == 2) {
-                    d.score += 1;
-                }
-                if (d.size == 3) {
-                    d.score += 5;
-                }
-                if (d.size == 4) {
-                    d.score += 1;
-                }
-                if (d.size == 5) {
-                    d.score += 0;
-                }
-                break;
-            case "4":
-                if (d.size == 1) {
-                    d.score += 0;
-                }
-                if (d.size == 2) {
-                    d.score += 1;
-                }
-                if (d.size == 3) {
-                    d.score += 5;
-                }
-                if (d.size == 4) {
-                    d.score += 1;
-                }
-                if (d.size == 5) {
-                    d.score += 0;
-                }
-                break;
-            case 5:
-            default:
-                d.score += 1;
-                break;
-        }
-
-    }
-
-    @RequestMapping(path = "/", method = RequestMethod.POST)
-
-    //It should take the model and the session as arguments
-    public String showPet(String q1, String q2, HttpSession session) {
-
-        Iterable<Dog> dogList = DogRepo.findAll();
-
-        for (Dog d : dogList) {
-            questionsQ1(q1, d);
-            questionsQ2(q2, d);
-        }
-        //return the home template
-        return "home";
-    }
-
-
-}*/

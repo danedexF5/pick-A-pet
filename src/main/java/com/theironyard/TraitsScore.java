@@ -14,7 +14,7 @@ public class Traitsscore {
     @GeneratedValue
     Integer id;
 
-    int question;
+    String question;
     int traitValue;
     int answer;
     int score;

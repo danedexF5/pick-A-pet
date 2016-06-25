@@ -1,86 +1,87 @@
 <html>
 <body>
 <script type="text/javascript">
-    function isChecked(q) {
-        var arr = document.getElementsByName(q);
-        for (var i = 0; i < arr.length; i++) {
-            if (arr[i].checked) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function checkAll() {
-        for (var i = 1; i <= 9; i++) {
-            if (!isChecked("q" + i)) {
-                alert ('Please fill out all the questions before submitting.');
-                return false;
-            }
-        }
-        return true;
-    }
+   function isChecked(q) {
+       var arr = document.getElementsByName(q);
+       for (var i = 0; i < arr.length; i++) {
+           if (arr[i].checked) {
+               return true;
+           }
+       }
+       return false;
+   }
+//todo: need to change the requirements here
+   function checkAll() {
+       var qNames = ["attention", "energy", "exercise", "size", "space", "outdoor", "friendliness", "kids", "sheds"]
+       for (var i = 0; i < 9; i++) {
+           if (!isChecked(qNames [i])) {
+               alert ('Please fill out all the questions before submitting.');
+               return false;
+           }
+       }
+       return true;
+   }
 
 </script>
 
 <form action="/" method="post" onsubmit="return checkAll();">
-    "How many hours per week do you work outside of your home?"<br>
-    <input type="radio" name="q1" value="1"/>20 Hours or Less<br>
-    <input type="radio" name="q1" value="2"/>30 Hours or Less<br>
-    <input type="radio" name="q1" value="3"/>40 Hours or Less<br>
-    <input type="radio" name="q1" value="4"/>50 Hours or Less<br>
-    <input type="radio" name="q1" value="5"/>51+ Hours<br>
-    "How active are you?"<br>
-    <input type="radio" name="q2" value="1"/>Not Active<br>
-    <input type="radio" name="q2" value="2"/>Home most of the time<br>
-    <input type="radio" name="q2" value="3"/>Average<br>
-    <input type="radio" name="q2" value="4"/>Out a lot<br>
-    <input type="radio" name="q2" value="5"/>Rarely home<br>
-    "Which size of dog do you prefer?<br>
-    <input type="radio" name="q3" value="1"/>Toy<br>
-    <input type="radio" name="q3" value="2"/>Small<br>
-    <input type="radio" name="q3" value="3"/>Medium<br>
-    <input type="radio" name="q3" value="4"/>Large<br>
-    <input type="radio" name="q3" value="5"/>Huge<br>
-    "What type of home do you have?"<br>
-    <input type="radio" name="q4" value="1"/>Apartment<br>
-    <input type="radio" name="q4" value="2"/>Condo<br>
-    <input type="radio" name="q4" value="3"/>Shared House<br>
-    <input type="radio" name="q4" value="4"/>2-3 bedroom single family house<br>
-    <input type="radio" name="q4" value="5"/>Large house<br>
-    "Does the property have a yard?"<br>
-    <input type="radio" name="q5" value="1"/>No Yard<br>
-    <input type="radio" name="q5" value="2"/>Yes, small yard, no fence<br>
-    <input type="radio" name="q5" value="3"/>Yes, average size, fenced in<br>
-    <input type="radio" name="q5" value="4"/>Yes, big yard, no fence<br>
-    <input type="radio" name="q5" value="5"/>Yes, big and fenced in<br>
-    "Do you have children?"<br>
-    <input type="radio" name="q6" value="1"/>No children<br>
-    <input type="radio" name="q6" value="2"/>Yes, young kid<br>
-    <input type="radio" name="q6" value="3"/>Yes, baby/toddler<br>
-    <input type="radio" name="q6" value="4"/>Yes, multiple young kids<br>
-    <input type="radio" name="q6" value="5"/>Yes, multiple babies/toddlers<br>
-    "How much does shedding bother you?"<br>
-    <input type="radio" name="q7" value="1"/>It doesn't<br>
-    <input type="radio" name="q7" value="2"/>A little<br>
-    <input type="radio" name="q7" value="3"/>I don't like it<br>
-    <input type="radio" name="q7" value="4"/>It really bothers me<br>
-    <input type="radio" name="q7" value="5"/>Dealbreaker<br>
-    "How energetic would you like your dog to be?"<br>
-    <input type="radio" name="q8" value="1"/>Likes to lounge<br>
-    <input type="radio" name="q8" value="2"/>A little playful<br>
-    <input type="radio" name="q8" value="3"/>Normal walks, otherwise mellow<br>
-    <input type="radio" name="q8" value="4"/>Multiple walks and bounces around the house<br>
-    <input type="radio" name="q8" value="5"/>Constant movement, loves being active all the time<br>
-    "How social do you want your dog to be?"<br>
-    <input type="radio" name="q9" value="1"/>Aloof<br>
-    <input type="radio" name="q9" value="2"/>Cautious, but curious<br>
-    <input type="radio" name="q9" value="3"/>Likes some people and other dogs<br>
-    <input type="radio" name="q9" value="4"/>Likes most people and other dogs<br>
-    <input type="radio" name="q9" value="5"/>Social butterfly<br>
+   "How energetic would you like your dog to be?"<br>
+   <input type="radio" name="energy" value="1"/>Likes to lounge<br>
+   <input type="radio" name="energy" value="2"/>A little playful<br>
+   <input type="radio" name="energy" value="3"/>Normal walks, otherwise mellow<br>
+   <input type="radio" name="energy" value="4"/>Multiple walks and bounces around the house<br>
+   <input type="radio" name="energy" value="5"/>Constant movement, loves being active all the time<br>
+   "How many hours per week do you work outside of your home?"<br>
+   <input type="radio" name="attention" value="1"/>20 Hours or Less<br>
+   <input type="radio" name="attention" value="2"/>30 Hours or Less<br>
+   <input type="radio" name="attention" value="3"/>40 Hours or Less<br>
+   <input type="radio" name="attention" value="4"/>50 Hours or Less<br>
+   <input type="radio" name="attention" value="5"/>51+ Hours<br>
+   "How active are you?"<br>
+   <input type="radio" name="exercise" value="1"/>Not Active<br>
+   <input type="radio" name="exercise" value="2"/>Home most of the time<br>
+   <input type="radio" name="exercise" value="3"/>Average<br>
+   <input type="radio" name="exercise" value="4"/>Out a lot<br>
+   <input type="radio" name="exercise" value="5"/>Rarely home<br>
+   "Which size of dog do you prefer?<br>
+   <input type="radio" name="size" value="1"/>Toy<br>
+   <input type="radio" name="size" value="2"/>Small<br>
+   <input type="radio" name="size" value="3"/>Medium<br>
+   <input type="radio" name="size" value="4"/>Large<br>
+   <input type="radio" name="size" value="5"/>Huge<br>
+   "What type of home do you have?"<br>
+   <input type="radio" name="space" value="1"/>Apartment<br>
+   <input type="radio" name="space" value="2"/>Condo<br>
+   <input type="radio" name="space" value="3"/>Shared House<br>
+   <input type="radio" name="space" value="4"/>2-3 bedroom single family house<br>
+   <input type="radio" name="space" value="5"/>Large house<br>
+   "Does the property have a yard?"<br>
+   <input type="radio" name="outdoor" value="1"/>No Yard<br>
+   <input type="radio" name="outdoor" value="2"/>Yes, small yard, no fence<br>
+   <input type="radio" name="outdoor" value="3"/>Yes, average size, fenced in<br>
+   <input type="radio" name="outdoor" value="4"/>Yes, big yard, no fence<br>
+   <input type="radio" name="outdoor" value="5"/>Yes, big and fenced in<br>
+   "Do you have children?"<br>
+   <input type="radio" name="kids" value="1"/>No children<br>
+   <input type="radio" name="kids" value="2"/>Yes, young kid<br>
+   <input type="radio" name="kids" value="3"/>Yes, baby/toddler<br>
+   <input type="radio" name="kids" value="4"/>Yes, multiple young kids<br>
+   <input type="radio" name="kids" value="5"/>Yes, multiple babies/toddlers<br>
+   "How much does shedding bother you?"<br>
+   <input type="radio" name="sheds" value="1"/>It doesn't<br>
+   <input type="radio" name="sheds" value="2"/>A little<br>
+   <input type="radio" name="sheds" value="3"/>I don't like it<br>
+   <input type="radio" name="sheds" value="4"/>It really bothers me<br>
+   <input type="radio" name="sheds" value="5"/>Dealbreaker<br>
+   "How social do you want your dog to be?"<br>
+   <input type="radio" name="friendliness" value="1"/>Aloof<br>
+   <input type="radio" name="friendliness" value="2"/>Cautious, but curious<br>
+   <input type="radio" name="friendliness" value="3"/>Likes some people and other dogs<br>
+   <input type="radio" name="friendliness" value="4"/>Likes most people and other dogs<br>
+   <input type="radio" name="friendliness" value="5"/>Social butterfly<br>
 
 
-    <button type="submit">Submit</button>
+   <button type="submit">Submit</button>
 </form>
 
 

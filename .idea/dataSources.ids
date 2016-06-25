@@ -10,8 +10,8 @@
       <schema id="2" parent="1" name="public">
         <object-id>2200</object-id>
         <comment>standard public schema</comment>
-        <introspection-state-number>1186</introspection-state-number>
-        <introspection-timestamp>2016-06-18.11:09:18.057</introspection-timestamp>
+        <introspection-state-number>1518</introspection-state-number>
+        <introspection-timestamp>2016-06-24.10:43:31.607</introspection-timestamp>
       </schema>
       <schema id="3" parent="1" name="pg_catalog">
         <object-id>11</object-id>
@@ -52,7 +52,7 @@
       </table>
       <table id="11" parent="2" name="traitsscore">
         <object-id>16541</object-id>
-        <state-number>1186</state-number>
+        <state-number>1518</state-number>
       </table>
       <table id="12" parent="3" name="pg_aggregate">
         <object-id>2600</object-id>
@@ -21234,9 +21234,9 @@
         <data-type>integer</data-type>
       </column>
       <column id="3805" parent="11" name="question">
-        <state-number>1186</state-number>
+        <state-number>1518</state-number>
         <mandatory>1</mandatory>
-        <data-type>integer</data-type>
+        <data-type>varchar(20)</data-type>
       </column>
       <column id="3806" parent="11" name="score">
         <state-number>1186</state-number>

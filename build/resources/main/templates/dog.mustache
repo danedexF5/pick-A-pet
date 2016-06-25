@@ -37,13 +37,15 @@
 
                     breed:{{breed}}
 
-                {{/dogChoice}}
+
                 </h4>
 
             </div>
             <div class="one-half column dog">
-                <img class="pictures" src="pictures/chihuahua-sobel-dog-50718.jpeg">
+                <img class="pictures" src="pictures/{{breed}}.jpg">
+
             </div>
+                    {{/dogChoice}}
         </div>
     </div>
 </div>
@@ -58,7 +60,23 @@
                 <h5 class="value-heading">Search for adoptable {{#dogChoice}}{{breed}}'s{{/dogChoice}} in your local area! </h5>
                 <p class="value-description">"add link to petfinder here"</p>
             </div>
+
         </div>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        {{#pets}}
+            <div class="row">
+                <div class="column">{{name}}</div>
+                <div class="column">{{gender}}</div>
+                <div class="column"><pre>{{description}}</pre></div>
+                <div class="column">{{phone}}</div>
+                <div class="column">{{contact}}</div>
+                <hr />
+            </div>
+        {{/pets}}
     </div>
 </div>
 

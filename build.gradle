@@ -32,6 +32,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-mustache')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.petfinder:petfinder-api:1.0.1')
+	compile('com.maxmind.geoip2:geoip2:2.1.0')
+	compile('org.json:json:20160212')
 
 	runtime('com.h2database:h2')
 	runtime('org.postgresql:postgresql')

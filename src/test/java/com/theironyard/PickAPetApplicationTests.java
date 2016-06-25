@@ -44,24 +44,24 @@ public class PickAPetApplicationTests {
 
 		mockMvc.perform(
 				MockMvcRequestBuilders.post("/")
-						.param("q1", "1")
-						.param("q2", "1")
-						.param("q3", "1")
-						.param("q4", "1")
-						.param("q5", "1")
-						.param("q6", "1")
-						.param("q7", "1")
-						.param("q8", "1")
-						.param("q9", "1")
+						.param("attention", "1")
+						.param("energy", "1")
+						.param("exercise", "1")
+						.param("size", "1")
+						.param("space", "1")
+						.param("outdoor", "1")
+						.param("sheds", "1")
+						.param("kids", "1")
+						.param("friendliness", "1")
 		).andExpect(status().isOk())
 				.andExpect(content().string(containsString("Chihuahua")));
 	}
 
 	@Test
 	public void testChildren() throws Exception{
-		Traitsscore t = traitsRepo.findByRow(6, 1, 1);
+		Traitsscore t = traitsRepo.findByRow("outdoor", 1, 1);
 		Assert.assertTrue(t.score == 5);
-		t = traitsRepo.findByRow(6, 1, 2);
+		t = traitsRepo.findByRow("outdoor", 1, 2);
 		Assert.assertTrue(t.score == 2);
 
 	}
