@@ -69,13 +69,18 @@
     <div>
         {{#pets}}
             <div class="row">
-                <div class="column">{{name}}</div>
-                <div class="column">{{gender}}</div>
-                <div class="column"><pre>{{description}}</pre></div>
-                <div class="column">{{phone}}</div>
-                <div class="column">{{contact}}</div>
+                <div>{{name}} {{gender}}</div>
+            </div>
+            <div class="row">
+                <div class="three columns">
+                    {{phone}}<br /> {{contact}}
+                    <img class="pictures" src="{{photo}}" />
+                </div>
+                <div class="nine columns"><pre>{{description}}</pre></div>
                 <hr />
             </div>
+            <hr />
+            <div class="row"></div>
         {{/pets}}
     </div>
 </div>
