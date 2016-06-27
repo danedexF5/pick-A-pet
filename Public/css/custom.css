@@ -11,10 +11,21 @@ img {
     width: 100%;
 }
 
-.hero-heading {
+.redheader{
     color: red;
 }
 
 pre {
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif!important;
     white-space: pre-wrap;
+}
+
+.petinfo {
+    font-family:'Raleway' , sans-serif;
+    font-weight:bold;
+}
+
+.petdesc {
+    font-family:'Raleway' , sans-serif;
+    font-weight:normal;
 }

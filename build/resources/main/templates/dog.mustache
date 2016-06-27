@@ -35,7 +35,7 @@
                 <h4 class="hero-heading">
                     {{#dogChoice}}
 
-                    <H1>Congrats, you are a match with a <br>{{#dogChoice}}{{breed}}{{/dogChoice}}!</H1>
+                    <H1 class="redheader">Congrats, you are a match with a <br>{{#dogChoice}}{{breed}}{{/dogChoice}}!</H1>
 
 
                 </h4>
@@ -53,8 +53,8 @@
 <div class="section values">
     <div class="container">
         <div class="row">
-            <div class="one-half column value">
-                <h5 class="value-heading">{{#dogChoice}}{{breed}}'s{{/dogChoice}} available for adoption in your local area!</h5>
+            <div class="u-full-width">
+                <h5 class="value-heading"><b>{{#dogChoice}}{{breed}}'s{{/dogChoice}} available for adoption in your local area!</b></h5>
             </div>
 
         </div>
@@ -64,15 +64,16 @@
 <div class="container">
     <div>
         {{#pets}}
-            <div class="row">
-                <div>{{name}} {{gender}}</div>
+            <div class="row" class="petinfo">
+                <div><b>Name: {{name}}</b></div>
+                <div>Gender: {{gender}}</div>
             </div>
             <div class="row">
                 <div class="three columns">
                     {{phone}}<br /> {{contact}}
                     <img class="pictures" src="{{photo}}" />
                 </div>
-                <div class="nine columns"><pre>{{description}}</pre></div>
+                <div class="nine columns petdesc"><pre>{{description}}</pre></div>
                 <hr />
             </div>
             <hr />

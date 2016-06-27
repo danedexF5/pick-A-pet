@@ -1,3 +1,15 @@
+body {
+    background:
+            linear-gradient(
+                rgba(195,255,242,.45),
+                rgba(195,255,242,.45)
+            ),
+            url('../pictures/background2.jpg');
+    position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 .section {
     padding: 5rem 0 5rem;
     text-align: left;
@@ -11,16 +23,22 @@ img {
     width: 100%;
 }
 
-.categories {
-    background-image: url('../pictures/allDogs.jpg');
-    background-size: cover;
-    color: #fff;
-}
+
 
 .title {
-    color: darksalmon;
+    color: #FFA313;
 }
 
 .hero-heading {
-    color: goldenrod;
+    color: #FF850A;
+}
+
+.section{
+    background: rgba(255,255,255,.75);
+}
+
+button{
+    font-size: 3.0rem;
+    background-color: #FF850A;
+    color: white;
 }
