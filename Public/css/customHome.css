@@ -1,0 +1,26 @@
+.section {
+    padding: 5rem 0 5rem;
+    text-align: left;
+}
+.section-heading,
+.section-description {
+    margin-bottom: 1.2rem;
+}
+
+img {
+    width: 100%;
+}
+
+.categories {
+    background-image: url('../pictures/allDogs.jpg');
+    background-size: cover;
+    color: #fff;
+}
+
+.title {
+    color: darksalmon;
+}
+
+.hero-heading {
+    color: goldenrod;
+}

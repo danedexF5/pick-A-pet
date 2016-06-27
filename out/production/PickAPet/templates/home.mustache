@@ -1,87 +1,213 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <!-- Basic Page Needs
+ –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title><H1>Pick-A-Pet</H1></title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+ –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+
+    <!-- CSS
+ –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="css/normalize.css" rel="stylesheet">
+    <link href="css/skeleton.css" rel="stylesheet">
+    <link href="css/customHome.css" rel="stylesheet">
+</head>
+
+<!-- Primary Page Layout
+ –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+
 <body>
 <script type="text/javascript">
-   function isChecked(q) {
-       var arr = document.getElementsByName(q);
-       for (var i = 0; i < arr.length; i++) {
-           if (arr[i].checked) {
-               return true;
-           }
-       }
-       return false;
-   }
-//todo: need to change the requirements here
-   function checkAll() {
-       var qNames = ["attention", "energy", "exercise", "size", "space", "outdoor", "friendliness", "kids", "sheds"]
-       for (var i = 0; i < 9; i++) {
-           if (!isChecked(qNames [i])) {
-               alert ('Please fill out all the questions before submitting.');
-               return false;
-           }
-       }
-       return true;
-   }
+    function isChecked(q) {
+        var arr = document.getElementsByName(q);
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].checked) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //todo: need to change the requirements here
+    function checkAll() {
+        var qNames = ["attention", "energy", "exercise", "size", "space", "outdoor", "friendliness", "kids", "sheds"]
+        for (var i = 0; i < 9; i++) {
+            if (!isChecked(qNames [i])) {
+                alert('Please fill out all the questions before submitting.');
+                return false;
+            }
+        }
+        return true;
+    }
 
 </script>
 
+
 <form action="/" method="post" onsubmit="return checkAll();">
-   "How energetic would you like your dog to be?"<br>
-   <input type="radio" name="energy" value="1"/>Likes to lounge<br>
-   <input type="radio" name="energy" value="2"/>A little playful<br>
-   <input type="radio" name="energy" value="3"/>Normal walks, otherwise mellow<br>
-   <input type="radio" name="energy" value="4"/>Multiple walks and bounces around the house<br>
-   <input type="radio" name="energy" value="5"/>Constant movement, loves being active all the time<br>
-   "How many hours per week do you work outside of your home?"<br>
-   <input type="radio" name="attention" value="1"/>20 Hours or Less<br>
-   <input type="radio" name="attention" value="2"/>30 Hours or Less<br>
-   <input type="radio" name="attention" value="3"/>40 Hours or Less<br>
-   <input type="radio" name="attention" value="4"/>50 Hours or Less<br>
-   <input type="radio" name="attention" value="5"/>51+ Hours<br>
-   "How active are you?"<br>
-   <input type="radio" name="exercise" value="1"/>Not Active<br>
-   <input type="radio" name="exercise" value="2"/>Home most of the time<br>
-   <input type="radio" name="exercise" value="3"/>Average<br>
-   <input type="radio" name="exercise" value="4"/>Out a lot<br>
-   <input type="radio" name="exercise" value="5"/>Rarely home<br>
-   "Which size of dog do you prefer?<br>
-   <input type="radio" name="size" value="1"/>Toy<br>
-   <input type="radio" name="size" value="2"/>Small<br>
-   <input type="radio" name="size" value="3"/>Medium<br>
-   <input type="radio" name="size" value="4"/>Large<br>
-   <input type="radio" name="size" value="5"/>Huge<br>
-   "What type of home do you have?"<br>
-   <input type="radio" name="space" value="1"/>Apartment<br>
-   <input type="radio" name="space" value="2"/>Condo<br>
-   <input type="radio" name="space" value="3"/>Shared House<br>
-   <input type="radio" name="space" value="4"/>2-3 bedroom single family house<br>
-   <input type="radio" name="space" value="5"/>Large house<br>
-   "Does the property have a yard?"<br>
-   <input type="radio" name="outdoor" value="1"/>No Yard<br>
-   <input type="radio" name="outdoor" value="2"/>Yes, small yard, no fence<br>
-   <input type="radio" name="outdoor" value="3"/>Yes, average size, fenced in<br>
-   <input type="radio" name="outdoor" value="4"/>Yes, big yard, no fence<br>
-   <input type="radio" name="outdoor" value="5"/>Yes, big and fenced in<br>
-   "Do you have children?"<br>
-   <input type="radio" name="kids" value="1"/>No children<br>
-   <input type="radio" name="kids" value="2"/>Yes, young kid<br>
-   <input type="radio" name="kids" value="3"/>Yes, baby/toddler<br>
-   <input type="radio" name="kids" value="4"/>Yes, multiple young kids<br>
-   <input type="radio" name="kids" value="5"/>Yes, multiple babies/toddlers<br>
-   "How much does shedding bother you?"<br>
-   <input type="radio" name="sheds" value="1"/>It doesn't<br>
-   <input type="radio" name="sheds" value="2"/>A little<br>
-   <input type="radio" name="sheds" value="3"/>I don't like it<br>
-   <input type="radio" name="sheds" value="4"/>It really bothers me<br>
-   <input type="radio" name="sheds" value="5"/>Dealbreaker<br>
-   "How social do you want your dog to be?"<br>
-   <input type="radio" name="friendliness" value="1"/>Aloof<br>
-   <input type="radio" name="friendliness" value="2"/>Cautious, but curious<br>
-   <input type="radio" name="friendliness" value="3"/>Likes some people and other dogs<br>
-   <input type="radio" name="friendliness" value="4"/>Likes most people and other dogs<br>
-   <input type="radio" name="friendliness" value="5"/>Social butterfly<br>
 
+    <div class="container">
+        <section class="header">
+            <b><h1 class="title">Pick-A-Pet</h1></b>
 
-   <button type="submit">Submit</button>
+            <div class="section hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="one-third column">
+                            <h4 class="hero-heading">
+                                "How energetic would you like your dog to be?"<br></h4>
+                            <input type="radio" name="energy" value="1"/>Likes to lounge<br>
+                            <input type="radio" name="energy" value="2"/>A little playful<br>
+                            <input type="radio" name="energy" value="3"/>Normal walks, otherwise mellow<br>
+                            <input type="radio" name="energy" value="4"/>Multiple walks and bounces around the house<br>
+                            <input type="radio" name="energy" value="5"/>Constant movement, loves being active all the
+                            time<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="one-third column">
+                            <h4 class="hero-heading">
+                                "How many hours per week do you work outside of your home?"<br></h4>
+                            <input type="radio" name="attention" value="1"/>20 Hours or Less<br>
+                            <input type="radio" name="attention" value="2"/>30 Hours or Less<br>
+                            <input type="radio" name="attention" value="3"/>40 Hours or Less<br>
+                            <input type="radio" name="attention" value="4"/>50 Hours or Less<br>
+                            <input type="radio" name="attention" value="5"/>51+ Hours<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="one-third column">
+                            <h4 class="hero-heading">
+                                "How active are you?"<br></h4>
+                            <input type="radio" name="exercise" value="1"/>Not Active<br>
+                            <input type="radio" name="exercise" value="2"/>Home most of the time<br>
+                            <input type="radio" name="exercise" value="3"/>Average<br>
+                            <input type="radio" name="exercise" value="4"/>Out a lot<br>
+                            <input type="radio" name="exercise" value="5"/>Rarely home<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="one-third column">
+                            <h4 class="hero-heading">
+                                "Which size of dog do you prefer?<br></h4>
+                            <input type="radio" name="size" value="1"/>Toy<br>
+                            <input type="radio" name="size" value="2"/>Small<br>
+                            <input type="radio" name="size" value="3"/>Medium<br>
+                            <input type="radio" name="size" value="4"/>Large<br>
+                            <input type="radio" name="size" value="5"/>Huge<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="one-third column">
+                            <h4 class="hero-heading">
+                                "What type of home do you have?"<br></h4>
+                            <input type="radio" name="space" value="1"/>Apartment<br>
+                            <input type="radio" name="space" value="2"/>Condo<br>
+                            <input type="radio" name="space" value="3"/>Shared House<br>
+                            <input type="radio" name="space" value="4"/>2-3 bedroom single family house<br>
+                            <input type="radio" name="space" value="5"/>Large house<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="one-third column">
+                            <h4 class="hero-heading">
+                                "Does the property have a yard?"<br></h4>
+                            <input type="radio" name="outdoor" value="1"/>No Yard<br>
+                            <input type="radio" name="outdoor" value="2"/>Yes, small yard, no fence<br>
+                            <input type="radio" name="outdoor" value="3"/>Yes, average size, fenced in<br>
+                            <input type="radio" name="outdoor" value="4"/>Yes, big yard, no fence<br>
+                            <input type="radio" name="outdoor" value="5"/>Yes, big and fenced in<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="one-third column">
+                            <h4 class="hero-heading">
+                                "Do you have children?"<br></h4>
+                            <input type="radio" name="kids" value="1"/>No children<br>
+                            <input type="radio" name="kids" value="2"/>Yes, young kid<br>
+                            <input type="radio" name="kids" value="3"/>Yes, baby/toddler<br>
+                            <input type="radio" name="kids" value="4"/>Yes, multiple young kids<br>
+                            <input type="radio" name="kids" value="5"/>Yes, multiple babies/toddlers<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="one-third column">
+                            <h4 class="hero-heading">
+                                "How much does shedding bother you?"<br></h4>
+                            <input type="radio" name="sheds" value="1"/>It doesn't<br>
+                            <input type="radio" name="sheds" value="2"/>A little<br>
+                            <input type="radio" name="sheds" value="3"/>I don't like it<br>
+                            <input type="radio" name="sheds" value="4"/>It really bothers me<br>
+                            <input type="radio" name="sheds" value="5"/>Dealbreaker<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="one-third column">
+                            <h4 class="hero-heading">
+                                "How social do you want your dog to be?"<br></h4>
+                            <input type="radio" name="friendliness" value="1"/>Aloof<br>
+                            <input type="radio" name="friendliness" value="2"/>Cautious, but curious<br>
+                            <input type="radio" name="friendliness" value="3"/>Likes some people and other dogs<br>
+                            <input type="radio" name="friendliness" value="4"/>Likes most people and other dogs<br>
+                            <input type="radio" name="friendliness" value="5"/>Social butterfly<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="ip" value="45.37.183.254"/>
+
+            <button type="submit">Submit</button>
 </form>
 
 

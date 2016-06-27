@@ -70,9 +70,6 @@ public class PickAPetController {
                 || kids == null || sheds == null || friendliness == null){
             return "home";
         }
-       //todo: If user selects dog size 1, then all breeds that are med-huge get zeroed out.
-        // todo: If user chooses dog size 5, then breeds that are 1-3 are zeroed out. Something like this,
-        // todo: need to eliminate the possibility of getting a large dog if a small is chosen, vice-versa
 
         List<Dog> dogList = DogRepo.findAll();
         //Iterable<Traitsscore> traitsList = TraitsRepo.findAll();

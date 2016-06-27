@@ -35,7 +35,7 @@
                 <h4 class="hero-heading">
                     {{#dogChoice}}
 
-                    breed:{{breed}}
+                    <H1>Congrats, you are a match with a <br>{{#dogChoice}}{{breed}}{{/dogChoice}}!</H1>
 
 
                 </h4>
@@ -54,13 +54,30 @@
     <div class="container">
         <div class="row">
             <div class="one-half column value">
-                <h5 class="value-heading">Congrats, you are a match with a {{#dogChoice}}{{breed}}{{/dogChoice}}!</h5>
+                <h5 class="value-heading">{{#dogChoice}}{{breed}}'s{{/dogChoice}} available for adoption in your local area!</h5>
             </div>
-            <div class="one-half column value">
-                <h5 class="value-heading">Search for adoptable {{#dogChoice}}{{breed}}'s{{/dogChoice}} in your local area! </h5>
-                <p class="value-description">"add link to petfinder here"</p>
-            </div>
+
         </div>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        {{#pets}}
+            <div class="row">
+                <div>{{name}} {{gender}}</div>
+            </div>
+            <div class="row">
+                <div class="three columns">
+                    {{phone}}<br /> {{contact}}
+                    <img class="pictures" src="{{photo}}" />
+                </div>
+                <div class="nine columns"><pre>{{description}}</pre></div>
+                <hr />
+            </div>
+            <hr />
+            <div class="row"></div>
+        {{/pets}}
     </div>
 </div>
 
