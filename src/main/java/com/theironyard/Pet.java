@@ -3,9 +3,6 @@ package com.theironyard;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- * Created by danedexheimer on 6/25/16.
- */
 public class Pet {
     String phone = "";
     String age = "";
@@ -66,10 +63,5 @@ public class Pet {
             System.out.println("no gender");
         }
     }
-
-    //public String getHtmlDescription(){
-
-    //}
-
 
 }

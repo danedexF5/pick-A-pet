@@ -49,11 +49,11 @@ public class PickAPetController {
 
     //It should take the model and the session as arguments
     public String showPet(String attention, String energy, String exercise, String size, String space, String outdoor,
-                          String kids, String sheds, String friendliness, Model model, HttpSession session, HttpServletRequest request, String ip) throws IOException {
+                          String kids, String sheds, String friendliness, Model model, HttpSession session, HttpServletRequest request) throws IOException {
 
-        if (ip == null){
-            ip = request.getRemoteAddr();
-        }
+
+        String ip = request.getRemoteAddr();
+
         CityResponse cityResponse = null;
 
         try {
@@ -64,10 +64,18 @@ public class PickAPetController {
             e.printStackTrace();
         }
 
+        String zipcode;
+
+        if (cityResponse != null) {
+            zipcode = cityResponse.getPostal().getCode();
+        } else {
+            zipcode = "27701";
+        }
+
         //Dog dog = new Dog();
 
-        if(attention == null || energy == null || exercise == null || size == null || space == null || outdoor == null
-                || kids == null || sheds == null || friendliness == null){
+        if (attention == null || energy == null || exercise == null || size == null || space == null || outdoor == null
+                || kids == null || sheds == null || friendliness == null) {
             return "home";
         }
 
@@ -86,14 +94,14 @@ public class PickAPetController {
             d.score += TraitsRepo.findByRow("sheds", Integer.parseInt(sheds), d.sheds).score;
             d.score += TraitsRepo.findByRow("friendliness", Integer.parseInt(friendliness), d.friendliness).score;
 
-           if(dogChoice.score < d.score){
-               dogChoice = d;
-           }
+            if (dogChoice.score < d.score) {
+                dogChoice = d;
+            }
 
         }
-        JSONArray petsArray = getPets(cityResponse, dogChoice.breed);
+        JSONArray petsArray = getPets(zipcode, dogChoice.breed);
         ArrayList<Pet> pets = new ArrayList<>();
-        for(Object petObj : petsArray) {
+        for (Object petObj : petsArray) {
             // cast to JSONObject
             JSONObject jsonPet = (JSONObject) petObj;
 
@@ -109,7 +117,7 @@ public class PickAPetController {
         return "dog";
     }
 
-    public CityResponse getCity (String ip) throws IOException, GeoIp2Exception {
+    public CityResponse getCity(String ip) throws IOException, GeoIp2Exception {
         InetAddress ipAddress = InetAddress.getByName(ip);
 
         // get IP
@@ -126,9 +134,9 @@ public class PickAPetController {
         return response;
     }
 
-    public JSONArray getPets (CityResponse response, String breed) throws IOException {
-        String url = "http://api.petfinder.com/pet.find?key=7875e0a922b85853ebf2a9c60216a971&breed="+
-                URLEncoder.encode(breed, "UTF-8")+"&animal=dog&format=json&count=10&output=basic&location=" + response.getPostal().getCode();
+    public JSONArray getPets(String zipcode, String breed) throws IOException {
+        String url = "http://api.petfinder.com/pet.find?key=7875e0a922b85853ebf2a9c60216a971&breed=" +
+                URLEncoder.encode(breed, "UTF-8") + "&animal=dog&format=json&count=10&output=basic&location=" + zipcode;
 
         // get json as string from url
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
