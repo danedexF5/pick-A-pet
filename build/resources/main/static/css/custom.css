@@ -1,0 +1,31 @@
+.section {
+    padding: 8rem 0 7rem;
+    text-align: center;
+}
+.section-heading,
+.section-description {
+    margin-bottom: 1.2rem;
+}
+
+img {
+    width: 100%;
+}
+
+.blueheader{
+    color: #FF7A00;
+}
+
+pre {
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif!important;
+    white-space: pre-wrap;
+}
+
+.petinfo {
+    font-family:'Raleway' , sans-serif;
+    font-weight:bold;
+}
+
+.petdesc {
+    font-family:'Raleway' , sans-serif;
+    font-weight:normal;
+}
